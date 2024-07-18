@@ -95,7 +95,7 @@ namespace Plugins.View
 
         #endregion
 
-        #region Ctors
+        #region Ctor
 
         /// <summary>
         /// Создание объекта
@@ -119,7 +119,7 @@ namespace Plugins.View
 
         #endregion
 
-        #region Public Properties
+        #region Public properties
 
         /// <inheritdoc cref="username"/>
         public string UserName
@@ -177,16 +177,19 @@ namespace Plugins.View
         #region Commands
 
         /// <summary>
-        /// Поключиться к БД
+        /// Команда поключения к БД
         /// </summary>
-        public RelayCommand SaveCommand { get; set; }
+        public ICommand SaveCommand { get; set; }
         /// <summary>
         /// Отменить подключение
         /// </summary>
-        public RelayCommand CancelCommand { get; set; }
+        public ICommand CancelCommand { get; set; }
 
         #endregion
     }
+    /// <summary>
+    /// Предоставление результата
+    /// </summary>
     interface IResult
     {
         /// <summary>

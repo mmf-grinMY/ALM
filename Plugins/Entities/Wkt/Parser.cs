@@ -61,5 +61,22 @@ namespace Plugins.Entities.Wkt
 
             return new Point3d(coords[0].ToDouble(), coords[1].ToDouble(), 0);
         }
+        /// <summary>
+        /// Конвертация строки в вещественное число
+        /// </summary>
+        /// <param name="str">Строковое представление числа</param>
+        /// <returns>Вещественное число</returns>
+        public static double ToDouble(this string str)
+        {
+            if (str is null)
+                return 0.0;
+
+            if (str.Contains("_"))
+                str = str.Replace('_', '.');
+            else if (str.Contains(","))
+                str = str.Replace(',', '.');
+
+            return double.Parse(str, System.Globalization.CultureInfo.GetCultureInfo("en"));
+        }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Data;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace Plugins.View
 {
@@ -16,6 +18,32 @@ namespace Plugins.View
         {
             InitializeComponent();
             DataContext = new ExternalDbViewModel(view);
+        }
+
+        private void DataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if (e.PropertyName == "АБС.ОТМ.,М_")
+            {
+                // Создание столбца
+                DataGridTextColumn textColumn = new DataGridTextColumn
+                {
+                    Header = "АБС.ОТМ.,М_"
+                };
+                // textColumn.Binding = new Binding("[" + e.PropertyName + "]");
+
+                Binding binding = new Binding
+                {
+                    ElementName = "dataGrid",
+                    Path = new PropertyPath($"Items[{e.Column.DisplayIndex}].[{e.PropertyName}]")
+                };
+                textColumn.Binding = binding;
+
+                // Добавление столбца в DataGrid
+                (sender as DataGrid).Columns.Add(textColumn);
+
+                // Отмена автоматической генерации столбца
+                e.Cancel = true;
+            }
         }
     }
     /// <summary>

@@ -10,7 +10,9 @@
         d:DesignWidth="800">
     <Grid>
         <DataGrid 
+            x:Name="dataGrid"
             ItemsSource="{Binding View}"
-            AutoGenerateColumns="True"/>
+            AutoGenerateColumns="True"
+            AutoGeneratingColumn="DataGrid_AutoGeneratingColumn"/>
     </Grid>
 </Window>
