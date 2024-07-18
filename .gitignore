@@ -2,14 +2,16 @@
 # Данный GITIGNORE-файл был автоматически создан Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs
+/**/.vs
 /packages
-/Plugins/bin
-/Plugins/obj
+/ALM/bin
+/ALM/obj
 /**/*.xsd
+/Plugins.Tests/
 /Plugins.Core.Tests/
 /Plugins/ClassDiagram1.cd
-/Plugins.Tests/bin
-/Plugins.Tests/obj
+/ALM.Tests/bin
+/ALM.Tests/obj
 /Plugins.Tests/Core
 /Plugins.Tests/Helpers
+/.vscode

@@ -1,6 +1,8 @@
 ﻿using System;
 
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using Plugins.Logging;
 
 namespace Plugins.Entities
 {
@@ -58,7 +60,7 @@ namespace Plugins.Entities
         #endregion
 
         #region Ctor
-        
+
         /// <summary>
         /// Создание объекта
         /// </summary>
@@ -81,17 +83,90 @@ namespace Plugins.Entities
                          string id,
                          string guid)
         {
+            JObject JsonParse(string source, string exceptionSource)
+            {
+                try
+                {
+                    return JObject.Parse(source);
+                }
+                catch (JsonReaderException e)
+                {
+                    throw e.AddData(guid, exceptionSource.ToUpper() + ": " + source);
+                }
+            }
+
+            int Int32Parse(string source, string exceptionSource)
+            {
+                try
+                {
+                    return Convert.ToInt32(source);
+                }
+                catch (FormatException e)
+                {
+                    throw e.AddData(guid, exceptionSource.ToUpper() + ": " + source);
+                }
+                catch (OverflowException e)
+                {
+                    throw e.AddData(guid, exceptionSource.ToUpper() + ": " + source);
+                }
+            }
+
             Geometry = wkt;
-            DrawSettings = JObject.Parse(settings);
-            Param = JObject.Parse(param);
-            LayerName = System.Text.RegularExpressions.Regex.Replace(layername, "[<>\\*\\?/|\\\\\":;,=]", "_");
-            SystemId = Convert.ToInt32(systemid);
+            DrawSettings = JsonParse(settings, nameof(settings));
+            Param = JsonParse(param, nameof(param));
+            
+            try
+            {
+                LayerName = System.Text.RegularExpressions.Regex.Replace(layername, "[<>\\*\\?/|\\\\\":;,=]", "_");
+            }
+            catch (System.Text.RegularExpressions.RegexMatchTimeoutException e)
+            {
+                throw e.AddData(guid, "LAYER: "+ layername);
+            }
+            catch (ArgumentNullException e)
+            {
+                throw e.AddData(guid, "LAYER: " + layername);
+            }
+            catch (ArgumentException e)
+            {
+                throw e.AddData(guid, "LAYER: " + layername);
+            }
+
+            SystemId = Int32Parse(systemid, "SYSTEM_ID");
             BaseName = baseName;
             ChildField = childFields;
-            Id = Convert.ToInt32(id);
-            this.guid = System.Guid.Parse(guid);
+            Id = Int32Parse(id, nameof(id));
+
+            try
+            {
+                this.guid = System.Guid.Parse(guid);
+            }
+            catch (FormatException e)
+            {
+                throw e.AddData(guid, "GUID: " + guid);
+            }
+            catch (ArgumentNullException e)
+            {
+                throw e.AddData(guid, "GUID: " + guid);
+            }
         }
 
         #endregion
+    }
+    public static class ExceptionTools
+    {
+        private static readonly string sourceKey = "STR";
+        private static readonly string guidKey = "GUID";
+        public static Exception AddData(this Exception e, string guid, string source) 
+        {
+            e.Data.Add(sourceKey, source);
+            e.Data.Add(guidKey, guid);
+
+            return e;
+        }
+        public static void Log(this Exception e, ILogger logger, string message)
+        {
+            logger.LogWarning("Чтение объекта {1}\n" + message + "\n{0}!", e.Data[sourceKey], e.Data[guidKey]);
+        }
     }
 }

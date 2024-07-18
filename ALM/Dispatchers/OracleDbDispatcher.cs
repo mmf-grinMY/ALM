@@ -3,7 +3,9 @@ using Plugins.Logging;
 using Plugins.View;
 
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Windows;
@@ -12,8 +14,8 @@ using System.IO;
 using System;
 
 using Oracle.ManagedDataAccess.Client;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
+
+using Newtonsoft.Json;
 
 namespace Plugins
 {
@@ -32,6 +34,7 @@ namespace Plugins
         /// Текущий горизонт
         /// </summary>
         readonly string gorizont;
+        private readonly ILogger logger;
 
         #endregion
 
@@ -44,8 +47,10 @@ namespace Plugins
         /// <param name="gorizont">Выбранный горизонт</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
-        public OracleDbDispatcher(string connectionStr = null, string gorizont = null)
+        public OracleDbDispatcher(ILogger logger, string connectionStr = null, string gorizont = null)
         {
+            this.logger = logger;
+
             var isCreated = false;
             var isCanceled = false;
             object[] result;
@@ -207,7 +212,9 @@ namespace Plugins
 
                         while (queue.Count > Constants.QueueLimit) await Task.Delay(Constants.ReaderSleepTime);
 
-                        queue.Enqueue(new Primitive(reader["geowkt"].ToString(),
+                        try
+                        {
+                            var primitive = new Primitive(reader["geowkt"].ToString(),
                                                           reader["drawjson"].ToString(),
                                                           reader["paramjson"].ToString(),
                                                           reader["layername"] + " _ " + reader["sublayername"],
@@ -215,21 +222,53 @@ namespace Plugins
                                                           reader["basename"].ToString(),
                                                           reader["childfields"].ToString(),
                                                           reader["rn"].ToString(),
-                                                          reader["objectguid"].ToString()));
+                                                          reader["objectguid"].ToString());
 
-                        var currentPrecent = ++readPosition * 100 / totalCount;
-
-                        if (currentPrecent > percent)
+                            queue.Enqueue(primitive);
+                        }
+                        catch (JsonReaderException e)
                         {
-                            percent = currentPrecent;
-                            model.ReadProgress = percent;
+                            e.Log(logger, "Невозможно преобразовать в json объект строку");
+                        }
+                        catch (RegexMatchTimeoutException e)
+                        {
+                            e.Log(logger, "Превышен предел времени преобразования строки");
+                        }
+                        catch (FormatException e)
+                        {
+                            e.Log(logger, "Неверный формат представления величины");
+                        }
+                        catch (OverflowException e)
+                        {
+                            e.Log(logger, "Первышен размер допустимого диапазона чисел int32");
+                        }
+                        catch (ArgumentNullException e)
+                        {
+                            e.Log(logger, "Невозможно обработать нулевой аргумент");
+                        }
+                        catch (ArgumentException e)
+                        {
+                            e.Log(logger, "Невозможно обработать параметр");
+                        }
+                        catch (Exception e)
+                        {
+                            logger.LogError(e);
+                        }
+                        finally
+                        {
+                            var currentPrecent = ++readPosition * 100 / totalCount;
+
+                            if (currentPrecent > percent)
+                            {
+                                percent = currentPrecent;
+                                model.ReadProgress = percent;
+                            }
                         }
                     }
                 }
                 // Вызывается из-за отсутсвия некоторых запрашиваемых столбцов в таблице
                 catch (OracleException e)
                 {
-                    var logger = new FileLogger(Path.Combine(Constants.AssemblyPath, "Logs", nameof(OracleDbDispatcher) + ".log"));
                     logger.LogError(e);
                 }
                 finally
