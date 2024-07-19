@@ -7,9 +7,6 @@
 /ALM/bin
 /ALM/obj
 /**/*.xsd
-/Plugins.Tests/
-/Plugins.Core.Tests/
-/Plugins/ClassDiagram1.cd
 /ALM.Tests/bin
 /ALM.Tests/obj
 /Plugins.Tests/Core

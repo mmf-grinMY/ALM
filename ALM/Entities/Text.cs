@@ -3,7 +3,7 @@ using Autodesk.AutoCAD.Geometry;
 
 using Newtonsoft.Json.Linq;
 
-namespace Plugins.Entities
+namespace ALM.Entities
 {
     /// <summary>
     /// Подпись

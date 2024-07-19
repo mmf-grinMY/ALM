@@ -1,6 +1,6 @@
 ﻿using Autodesk.AutoCAD.DatabaseServices;
 
-namespace Plugins.Dispatchers
+namespace ALM.Dispatchers
 {
     class RegAppTableDispatcher : SymbolTableDispatcher, ITableDispatcher
     {

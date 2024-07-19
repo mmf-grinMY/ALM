@@ -1,4 +1,4 @@
-﻿namespace Plugins.Logging
+﻿namespace ALM.Logging
 {
     /// <summary>
     /// Логер событий
@@ -12,6 +12,8 @@
         /// <param name="message">Сообщение логов</param>
         /// <param name="ex">Сопутствующее исключение</param>
         void Log(LogLevel level, string message = null, System.Exception exception = null);
+        void StartCommandExecute(string command);
+        void StopCommandExecute(string command);
     }
     /// <summary>
     /// Расширения логеров

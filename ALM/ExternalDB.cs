@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Plugins
+namespace ALM
 {
     public partial class ExternalDB : Form
     {

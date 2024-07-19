@@ -1,10 +1,10 @@
-﻿using Plugins.Logging;
+﻿using ALM.Logging;
 
 using System;
 
 using Autodesk.AutoCAD.DatabaseServices;
 
-namespace Plugins
+namespace ALM
 {
     /// <summary>
     /// Безопасная относительно исключений обертка для Autodesk.AutoCAD.DatabaseServices.Transaction

@@ -1,4 +1,4 @@
-﻿using Plugins.Logging;
+﻿using ALM.Logging;
 
 using System.IO;
 using System;
@@ -7,7 +7,7 @@ using Autodesk.AutoCAD.ApplicationServices;
 
 using Newtonsoft.Json.Linq;
 
-namespace Plugins
+namespace ALM
 {
     /// <summary>
     /// Хранилище общих констант

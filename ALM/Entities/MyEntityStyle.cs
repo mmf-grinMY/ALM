@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Plugins.Entities
+namespace ALM.Entities
 {
     /// <summary>
     /// Мой стиль отрисовки примитивов

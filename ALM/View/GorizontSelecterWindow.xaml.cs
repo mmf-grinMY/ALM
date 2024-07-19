@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 
-namespace Plugins.View
+namespace ALM.View
 {
     /// <summary>
     /// Логика взаимодействия для GorizontSelecterWindow.xaml

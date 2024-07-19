@@ -3,7 +3,7 @@
 using APolyline = Autodesk.AutoCAD.DatabaseServices.Polyline;
 using Autodesk.AutoCAD.Geometry;
 
-namespace Plugins.Entities.Wkt
+namespace ALM.Entities.Wkt
 {
     /// <summary>
     /// Парсер формата Wkt

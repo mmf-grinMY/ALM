@@ -2,9 +2,9 @@
 
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
-using Plugins.Logging;
+using ALM.Logging;
 
-namespace Plugins.Entities
+namespace ALM.Entities
 {
     /// <summary>
     /// Параметры отрисовки

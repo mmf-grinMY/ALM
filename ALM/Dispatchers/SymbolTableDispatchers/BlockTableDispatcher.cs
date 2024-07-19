@@ -1,11 +1,11 @@
-﻿using Plugins.Logging;
+﻿using ALM.Logging;
 
 using System.IO;
 
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Colors;
 
-namespace Plugins.Dispatchers
+namespace ALM.Dispatchers
 {
     /// <summary>
     /// Диспетчер таблицы блоков

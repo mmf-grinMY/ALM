@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 using Newtonsoft.Json.Linq;
 
-namespace Plugins
+namespace ALM
 {
     /// <summary>
     /// Загрузчик параметров паттернов штриховки

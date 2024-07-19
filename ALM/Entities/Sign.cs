@@ -1,10 +1,10 @@
-﻿using Plugins.Dispatchers;
-using Plugins.Logging;
+﻿using ALM.Dispatchers;
+using ALM.Logging;
 
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 
-namespace Plugins.Entities
+namespace ALM.Entities
 {
     /// <summary>
     /// Специальный знак

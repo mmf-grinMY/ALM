@@ -7,9 +7,9 @@ using Autodesk.AutoCAD.Geometry;
 
 using Oracle.ManagedDataAccess.Client;
 
-using static Plugins.Constants;
+using static ALM.Constants;
 
-namespace Plugins
+namespace ALM
 {
     static class ExtensionMethods
     {

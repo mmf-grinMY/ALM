@@ -1,7 +1,7 @@
-﻿using Plugins.Dispatchers;
-using Plugins.Entities;
-using Plugins.Logging;
-using Plugins.View;
+﻿using ALM.Dispatchers;
+using ALM.Entities;
+using ALM.Logging;
+using ALM.View;
 
 using System.IO;
 using System;
@@ -12,9 +12,9 @@ using Autodesk.AutoCAD.Geometry;
 
 using Newtonsoft.Json.Linq;
 
-using static Plugins.Constants;
+using static ALM.Constants;
 
-namespace Plugins
+namespace ALM
 {
     /// <summary>
     /// Сеанс работы команды отрисовки
@@ -93,7 +93,7 @@ namespace Plugins
         public Session(ILogger logger)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            connection = new OracleDbDispatcher();
+            connection = new OracleDbDispatcher(this.logger);
             doc = Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument
                 ?? throw new ArgumentNullException(nameof(doc));
             db = doc.Database ?? throw new ArgumentNullException(nameof(db));

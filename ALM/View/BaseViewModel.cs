@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using System.ComponentModel;
 
-namespace Plugins
+namespace ALM
 {
     /// <summary>
     /// Базовый класс модели представления

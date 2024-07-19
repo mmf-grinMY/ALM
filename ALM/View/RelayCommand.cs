@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
 using System;
 
-namespace Plugins
+namespace ALM
 {
     /// <summary> Команда выполнения </summary>
     internal class RelayCommand : ICommand

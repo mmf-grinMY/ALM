@@ -1,4 +1,4 @@
-﻿using Plugins.Logging;
+﻿using ALM.Logging;
 
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
@@ -7,7 +7,7 @@ using System.Windows;
 using System;
 
 // TODO: Исправить логику остановки отрисовки плагина
-namespace Plugins.View
+namespace ALM.View
 {
     /// <summary>
     /// Окно прогресса отрисовки

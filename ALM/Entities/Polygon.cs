@@ -1,10 +1,10 @@
-﻿using Plugins.Logging;
+﻿using ALM.Logging;
 
 using System.Collections.Generic;
 
 using Autodesk.AutoCAD.DatabaseServices;
 
-namespace Plugins.Entities
+namespace ALM.Entities
 {
     /// <summary>
     /// Полигон

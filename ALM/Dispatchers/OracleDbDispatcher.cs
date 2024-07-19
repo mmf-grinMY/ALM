@@ -1,6 +1,6 @@
-﻿using Plugins.Entities;
-using Plugins.Logging;
-using Plugins.View;
+﻿using ALM.Entities;
+using ALM.Logging;
+using ALM.View;
 
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Windows;
+using System.Data;
 using System.Text;
 using System.IO;
 using System;
@@ -17,7 +18,7 @@ using Oracle.ManagedDataAccess.Client;
 
 using Newtonsoft.Json;
 
-namespace Plugins
+namespace ALM
 {
     /// <summary>
     ///  Диспетчер для работы с БД Oracle
@@ -160,11 +161,11 @@ namespace Plugins
 
             return string.Empty;
         }
-        public System.Data.DataTable GetDataTable(string command)
+        public DataTable GetDataTable(string command)
         {
             using (var reader = new OracleCommand(command, connection).ExecuteReader())
             {
-                var dataTable = new System.Data.DataTable();
+                var dataTable = new DataTable();
                 dataTable.Load(reader);
 
                 return dataTable;
@@ -172,16 +173,41 @@ namespace Plugins
         }
         public string GetLongGeometry(Primitive primitive)
         {
+            string numberRowName = string.Empty;
+
+            using (var reader = new OracleCommand($"SELECT * FROM k{gorizont}_trans_clone_geowkt", connection).ExecuteReader(System.Data.CommandBehavior.SchemaOnly))
+            {
+                var schema = reader.GetSchemaTable();
+
+                foreach (DataRow row in schema.Rows)
+                {
+                    if (row["ColumnName"].ToString().Contains("NUMB"))
+                    {
+                        numberRowName = row["ColumnName"].ToString();
+                    }
+                }
+            }
+
+            if (numberRowName == string.Empty) 
+                throw new InvalidOperationException("Не удалось найти столбце индексации частей геометрии!");
+
             var command = $"SELECT page FROM k{gorizont}_trans_clone_geowkt WHERE objectguid = '" + 
-                primitive.Guid.ToString().ToUpper() + "' ORDER BY numb";
+                primitive.Guid.ToString().ToUpper() + "' ORDER BY " + numberRowName;
             var builder = new StringBuilder().Append(primitive.Geometry);
 
-            using (var reader = new OracleCommand(command, connection).ExecuteReader())
+            try
             {
-                while (reader.Read())
+                using (var reader = new OracleCommand(command, connection).ExecuteReader())
                 {
-                    builder.Append(reader.GetString(0));
+                    while (reader.Read())
+                    {
+                        builder.Append(reader.GetString(0));
+                    }
                 }
+            }
+            catch (Exception e) // TODO: Исправить на более подходящий (узкий) тип исключения
+            {
+                logger.LogError(e);
             }
 
             return builder.ToString();

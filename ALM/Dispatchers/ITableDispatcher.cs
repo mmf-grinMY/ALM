@@ -1,4 +1,4 @@
-﻿namespace Plugins.Dispatchers
+﻿namespace ALM.Dispatchers
 {
     interface ITableDispatcher
     {

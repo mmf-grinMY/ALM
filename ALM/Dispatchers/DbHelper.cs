@@ -1,5 +1,5 @@
-﻿using Plugins.Entities;
-using Plugins.View;
+﻿using ALM.Entities;
+using ALM.View;
 
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System;
 
-namespace Plugins
+namespace ALM
 {
     /// <summary>
     /// Класс-помощник для получения данных из БД

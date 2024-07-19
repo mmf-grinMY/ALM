@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Plugins
+namespace ALM
 {
     /// <summary>
     /// Параметры подключения

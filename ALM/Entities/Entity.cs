@@ -1,8 +1,8 @@
-﻿using Plugins.Logging;
+﻿using ALM.Logging;
 
 using Autodesk.AutoCAD.DatabaseServices;
 
-namespace Plugins.Entities
+namespace ALM.Entities
 {
     /// <summary>
     /// Объект отрисовки

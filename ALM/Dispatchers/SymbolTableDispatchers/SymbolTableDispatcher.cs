@@ -1,11 +1,11 @@
-﻿using Plugins.Logging;
+﻿using ALM.Logging;
 
 using System.Collections.Generic;
 using System;
 
 using Autodesk.AutoCAD.DatabaseServices;
 
-namespace Plugins.Dispatchers
+namespace ALM.Dispatchers
 {
     /// <summary>
     /// Диспетчер таблицы символов

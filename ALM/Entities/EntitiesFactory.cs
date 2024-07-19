@@ -1,11 +1,11 @@
-﻿using Plugins.Dispatchers;
+﻿using ALM.Dispatchers;
 
 using System.IO;
 using System;
 
 using Newtonsoft.Json.Linq;
 
-namespace Plugins.Entities
+namespace ALM.Entities
 {
     /// <summary>
     /// Создатель объектов отрисовки

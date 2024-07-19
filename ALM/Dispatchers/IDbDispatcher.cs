@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Plugins
+namespace ALM
 {
     /// <summary>
     /// Диспетчер для работы с БД

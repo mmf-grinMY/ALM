@@ -1,4 +1,4 @@
-﻿namespace Plugins
+﻿namespace ALM
 {
     /// <summary>
     /// Конвертер цветов

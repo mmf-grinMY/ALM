@@ -1,11 +1,9 @@
-﻿using Plugins.Logging;
-
-using System.Linq;
+﻿using ALM.Logging;
 
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 
-namespace Plugins.Entities
+namespace ALM.Entities
 {
     /// <summary>
     /// Полилиния

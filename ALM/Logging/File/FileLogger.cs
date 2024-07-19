@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace Plugins.Logging
+namespace ALM.Logging
 {
     /// <summary>
     /// Файловый логер событий
@@ -74,6 +74,26 @@ namespace Plugins.Logging
                 {
                     System.IO.File.AppendAllText(filePath, builder.ToString());
                 }
+            }
+        }
+        public void StartCommandExecute(string command)
+        {
+            lock (lockObj)
+            {
+                var builder = new System.Text.StringBuilder();
+                var separator = new string('=', 20);
+                builder.AppendLine().AppendLine(separator)
+                    .AppendLine("Start executing " + command).AppendLine(separator).AppendLine();
+            }
+        }
+        public void StopCommandExecute(string command)
+        {
+            lock (lockObj)
+            {
+                var builder = new System.Text.StringBuilder();
+                var separator = new string('=', 20);
+                builder.AppendLine().AppendLine(separator)
+                    .AppendLine("Stop executing " + command).AppendLine(separator).AppendLine();
             }
         }
 

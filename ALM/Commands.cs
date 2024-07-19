@@ -1,4 +1,4 @@
-﻿using Plugins.Logging;
+﻿using ALM.Logging;
 
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +10,9 @@ using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
 
-using Oracle.ManagedDataAccess.Client;
+using static ALM.Constants;
 
-using static Plugins.Constants;
-using Plugins.View;
-using System.Security.Cryptography;
-
-namespace Plugins
+namespace ALM
 {
     public class Commands : IExtensionApplication
     {
@@ -178,17 +174,22 @@ namespace Plugins
                 session?.Dispose();
             }
         }
+        private const string VRM_INSPECT = "VRM_INSPECT_EXT_DB";
         /// <summary>
         /// Команда инспектирования атрибутивной таблицы
         /// </summary>
-        [CommandMethod("VRM_INSPECT_EXT_DB")]
+        [CommandMethod(VRM_INSPECT)]
         public void InspectExtDB()
         {
             OracleDbDispatcher connection;
 
+            var logger = new FileLogger("Logs/inspect.log", false);
+
+            logger.StartCommandExecute(VRM_INSPECT);
+
             try
             {
-                connection = new OracleDbDispatcher();
+                connection = new OracleDbDispatcher(logger);
             }
             catch (InvalidOperationException) { return; }
 
@@ -242,6 +243,8 @@ namespace Plugins
                     form.ShowDialog();
                 }
             }
+
+            logger.StopCommandExecute(VRM_INSPECT);
         }
 
         #endregion

@@ -1,10 +1,10 @@
-﻿using System.Windows;
+﻿using System.Windows.Input;
+using System.Windows;
 using System.IO;
 
 using Newtonsoft.Json;
-using System.Collections.Generic;
 
-namespace Plugins.View
+namespace ALM.View
 {
     /// <summary>
     /// Окно ввода параметров для подключения к БД

@@ -3,7 +3,7 @@ using System.Data;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace Plugins.View
+namespace ALM.View
 {
     /// <summary>
     /// Логика взаимодействия для ExternalDbWindow.xaml
