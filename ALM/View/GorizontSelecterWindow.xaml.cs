@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Input;
+using System.Windows;
+using System.Linq;
 
 namespace ALM.View
 {
@@ -54,7 +55,7 @@ namespace ALM.View
         /// <summary>
         /// Список доступных для чтения горизонтов
         /// </summary>
-        readonly ObservableCollection<string> gorizonts;
+        readonly ObservableCollection<string> horizons;
 
         #endregion
 
@@ -63,11 +64,17 @@ namespace ALM.View
         /// <summary>
         /// Создание объекта
         /// </summary>
-        /// <param name="dbGorizonts">Список доступных для чтения горизонтов</param>
-        public GorizontSelecterViewModel(ObservableCollection<string> dbGorizonts) => gorizonts = dbGorizonts;
-        /// <summary>
-        /// Выбранный горизонт
-        /// </summary>
+        /// <param name="dbHorizons">Список доступных для чтения горизонтов</param>
+        public GorizontSelecterViewModel(ObservableCollection<string> dbHorizons) 
+            => horizons = new ObservableCollection<string>(dbHorizons.OrderBy(s => s));
+        
+        #endregion
+
+        #region Public Properties
+
+        /// <inheritdoc cref="horizons"/>
+        public ObservableCollection<string> Gorizonts => horizons;
+        /// <inheritdoc cref="selectedGorizont"/>
         public int SelectedGorizont
         {
             get => selectedGorizont;
@@ -77,13 +84,6 @@ namespace ALM.View
                 OnPropertyChanged(nameof(SelectedGorizont));
             }
         }
-
-        #endregion
-
-        #region Public Properties
-
-        /// <inheritdoc cref="gorizonts"/>
-        public ObservableCollection<string> Gorizonts => gorizonts;
 
         #endregion
 

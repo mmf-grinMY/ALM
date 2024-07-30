@@ -66,7 +66,7 @@ namespace ALM.Entities
                 return dictionary.ContainsKey(key) ? dictionary[key].ToDouble() : 1.0;
             }
 
-            var lines = DbHelper.Parse(dispatcher, primitive);
+            var lines = DbHelper.Parse(dispatcher, primitive, logger);
 
             if (lines[0].Area == 0)
                 return;
@@ -118,14 +118,29 @@ namespace ALM.Entities
             lines[0].Append(transaction, record, primitive);
             collection.Add(lines[0].ObjectId);
 
-            hatch.AppendLoop(HatchLoopTypes.Default, collection);
+            void TryAppendLoop()
+            {
+                try
+                {
+                    hatch.AppendLoop(HatchLoopTypes.Default, collection);
+                }
+                catch (Autodesk.AutoCAD.Runtime.Exception e)
+                {
+                    if (e.Message.Contains("eInvalidInput"))
+                        logger.LogError($"Не удалось добавить геометрию {primitive.Guid} к контуру!");
+                    else
+                        throw;
+                }
+            }
+
+            TryAppendLoop();
 
             for (int i = 1; i < lines.Length; i++)
             {
                 collection.Clear();
                 lines[i].Append(transaction, record, primitive);
                 collection.Add(lines[i].ObjectId);
-                hatch.AppendLoop(HatchLoopTypes.Default, collection);
+                TryAppendLoop();
             }
 
             hatch.EvaluateHatch(true);

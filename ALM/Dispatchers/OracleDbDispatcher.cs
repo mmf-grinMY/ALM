@@ -17,6 +17,7 @@ using System;
 using Oracle.ManagedDataAccess.Client;
 
 using Newtonsoft.Json;
+using System.Data.Common;
 
 namespace ALM
 {
@@ -30,11 +31,11 @@ namespace ALM
         /// <summary>
         /// Подключение к Oracle БД
         /// </summary>
-        readonly OracleConnection connection;
+        internal readonly OracleConnection connection;
         /// <summary>
         /// Текущий горизонт
         /// </summary>
-        readonly string gorizont;
+        readonly string horizon;
         private readonly ILogger logger;
 
         #endregion
@@ -94,11 +95,11 @@ namespace ALM
                 if ((bool)result[1])
                     throw new InvalidOperationException();
 
-                this.gorizont = result[0].ToString();
+                this.horizon = result[0].ToString();
             }
             else
             {
-                this.gorizont = gorizont;
+                this.horizon = gorizont;
             }
         }
 
@@ -131,7 +132,7 @@ namespace ALM
         {
             get
             {
-                string command = "SELECT COUNT(*) FROM k" + gorizont + "_trans_clone";
+                string command = "SELECT COUNT(*) FROM k" + horizon + "_trans_clone";
 
                 using (var reader = new OracleCommand(command, connection).ExecuteReader())
                 {
@@ -171,46 +172,46 @@ namespace ALM
                 return dataTable;
             }
         }
-        public string GetLongGeometry(Primitive primitive)
+        private bool TryGetLongGeometry(string geometry, string guid, string numbColumnName, out string longGeometry)
         {
-            string numberRowName = string.Empty;
-
-            using (var reader = new OracleCommand($"SELECT * FROM k{gorizont}_trans_clone_geowkt", connection).ExecuteReader(System.Data.CommandBehavior.SchemaOnly))
-            {
-                var schema = reader.GetSchemaTable();
-
-                foreach (DataRow row in schema.Rows)
-                {
-                    if (row["ColumnName"].ToString().Contains("NUMB"))
-                    {
-                        numberRowName = row["ColumnName"].ToString();
-                    }
-                }
-            }
-
-            if (numberRowName == string.Empty) 
-                throw new InvalidOperationException("Не удалось найти столбце индексации частей геометрии!");
-
-            var command = $"SELECT page FROM k{gorizont}_trans_clone_geowkt WHERE objectguid = '" + 
-                primitive.Guid.ToString().ToUpper() + "' ORDER BY " + numberRowName;
-            var builder = new StringBuilder().Append(primitive.Geometry);
-
+            var builder = new StringBuilder(10_000).Append(geometry);
+            var query = $"SELECT \"PAGE\" FROM \"K{horizon}_TRANS_CLONE_GEOWKT\" WHERE OBJECTGUID = '{guid}' ORDER BY \"";
             try
             {
-                using (var reader = new OracleCommand(command, connection).ExecuteReader())
+                using (var command = new OracleCommand(query + numbColumnName + "\"", connection))
                 {
-                    while (reader.Read())
+                    using (var reader = command.ExecuteReader())
                     {
-                        builder.Append(reader.GetString(0));
+                        while (reader.Read())
+                        {
+                            builder.Append(reader.GetString(0));
+                        }
                     }
                 }
-            }
-            catch (Exception e) // TODO: Исправить на более подходящий (узкий) тип исключения
-            {
-                logger.LogError(e);
-            }
 
-            return builder.ToString();
+                longGeometry = builder.ToString();
+                return true;
+            }
+            catch (OracleException)
+            {
+                longGeometry = string.Empty;
+                return false;
+            }
+        }
+        public string GetLongGeometry(Primitive primitive)
+        {
+            if (TryGetLongGeometry(primitive.Geometry, primitive.Guid, "NUMB", out string longGeometry))
+            {
+                return longGeometry;
+            }
+            else if (TryGetLongGeometry(primitive.Geometry, primitive.Guid, "NUMBER", out longGeometry))
+            {
+                return longGeometry;
+            }
+            else
+            {
+                throw new InvalidOperationException($"Не удалось прочитать длинную геометрию объекта \"{primitive.Guid}\"");
+            }
         }
         public async void ReadAsync(CancellationToken token, ConcurrentQueue<Primitive> queue, DrawInfoViewModel model, Session session)
         {
@@ -223,7 +224,7 @@ namespace ALM
 
                 using (var stream = new StreamReader(Path.Combine(Constants.AssemblyPath, "draw.sql")))
                 {
-                    command = string.Format(stream.ReadToEnd(), gorizont, readPosition,
+                    command = string.Format(stream.ReadToEnd(), horizon, readPosition,
                         session.Right, session.Left, session.Top, session.Bottom);
                 }
 
@@ -308,8 +309,8 @@ namespace ALM
         public IEnumerable<string> GetLayers()
         {
             string command = "SELECT layername, sublayername FROM ( " + 
-                $"SELECT DISTINCT b.layername, b.sublayername FROM k{gorizont}_trans_clone a" + 
-                $" INNER JOIN k{gorizont}_trans_open_sublayers b ON a.sublayerguid = b.sublayerguid)";
+                $"SELECT DISTINCT b.layername, b.sublayername FROM k{horizon}_trans_clone a" + 
+                $" INNER JOIN k{horizon}_trans_open_sublayers b ON a.sublayerguid = b.sublayerguid)";
 
             using (var reader = new OracleCommand(command, connection).ExecuteReader())
             {

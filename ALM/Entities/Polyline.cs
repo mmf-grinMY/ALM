@@ -28,7 +28,7 @@ namespace ALM.Entities
         {
             base.Draw(transaction, table, record, logger);
 
-            var lines = DbHelper.Parse(dispatcher, primitive);
+            var lines = DbHelper.Parse(dispatcher, primitive, logger);
 
             if (lines.Length == 1)
             {

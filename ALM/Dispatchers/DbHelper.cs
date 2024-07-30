@@ -4,9 +4,15 @@ using ALM.View;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Windows;
-using System.Linq;
 using System.Text;
 using System;
+
+using NetTopologySuite.Geometries;
+using NetTopologySuite.IO;
+
+using Autodesk.AutoCAD.Geometry;
+using ALM.Logging;
+using System.Text.RegularExpressions;
 
 namespace ALM
 {
@@ -53,30 +59,6 @@ namespace ALM
         /// <returns>Выбранный горизонт</returns>
         public static object[] SelectGorizont(ObservableCollection<string> gorizonts) => 
             GetResult(new GorizontSelecterWindow(gorizonts));
-        /// <summary>
-        /// Получение полилиний из wkt
-        /// </summary>
-        /// <param name="dispatcher">Диспетчер для работы с БД</param>
-        /// <param name="primitive">Примитив рисуемого объекта</param>
-        /// <returns>Массив полилиний</returns>
-        /// <exception cref="InvalidOperationException"></exception>
-        public static Autodesk.AutoCAD.DatabaseServices.Polyline[] Parse(IDbDispatcher dispatcher, Primitive primitive)
-        {
-            var lines = Entities.Wkt.Parser.ParsePolyline(primitive.Geometry);
-
-            if (!lines.Any())
-            {
-                var geometry = dispatcher.GetLongGeometry(primitive);
-                lines = Entities.Wkt.Parser.ParsePolyline(geometry);
-
-                if (!lines.Any())
-                {
-                    throw new InvalidOperationException($"Не удалось получить геометрию объекта {primitive.Guid.ToString().ToUpper()}!");
-                }
-            }
-
-            return lines;
-        }
         /// <summary>
         /// Создание команды выборки данных
         /// </summary>
@@ -151,5 +133,80 @@ namespace ALM
 
             return result;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dispatcher"></param>
+        /// <param name="primitive"></param>
+        /// <returns></returns>
+        /// <exception cref="ParseException"/>
+        public static Autodesk.AutoCAD.DatabaseServices.Polyline[] Parse(IDbDispatcher dispatcher, Primitive primitive, ILogger logger)
+        {
+            return _Parse(dispatcher, primitive, logger).Map();
+        }
+#pragma warning disable IDE1006 // Стили именования
+        internal static Geometry _Parse(IDbDispatcher dispatcher, Primitive primitive, ILogger logger)
+#pragma warning restore IDE1006 // Стили именования
+        {
+            var reader = new WKTReader();
+
+            var wkt = primitive.Geometry;
+            try
+            {
+                return reader.Read(wkt);
+            }
+            catch (ParseException)
+            {
+                wkt = dispatcher.GetLongGeometry(primitive);
+                try
+                {
+                    return reader.Read(wkt);
+                }
+                catch (ParseException)
+                {
+                    try
+                    {
+                        return reader.Read(Regex.Replace(wkt, "\\(\\),?", string.Empty));
+                    }
+                    catch (ParseException)
+                    {
+                        logger.LogError("Не удалось получить геомерию объекта {0}", primitive.Guid);
+                        return new LineString(Array.Empty<Coordinate>());
+                    }
+                }
+            }
+            catch (ArgumentException)
+            {
+                if (new Regex("[MULTILINESTRING|POLYGON]\\(\\(\\d+(\\.\\d{0,3})? \\d+(\\.\\d{0,3})?\\)\\)").IsMatch(wkt))
+                {
+                    return new LineString(Array.Empty<Coordinate>());
+                }
+                else
+                {
+                    logger.LogError("Не удалось получить геомерию объекта {0}", primitive.Guid);
+                    return new LineString(Array.Empty<Coordinate>());
+                }
+            }
+        }
+    }
+    public static class MapperExtenions
+    {
+        public static Autodesk.AutoCAD.DatabaseServices.Polyline[] Map(this Geometry geometry)
+        {
+            var polylines = new Autodesk.AutoCAD.DatabaseServices.Polyline[geometry.NumGeometries];
+
+            for (int i = 0; i < polylines.Length; i++)
+            {
+                polylines[i] = new Autodesk.AutoCAD.DatabaseServices.Polyline();
+                var linestring = geometry.GetGeometryN(i);
+                for (int j = 0; j < linestring.Coordinates.Length; j++)
+                {
+                    polylines[i].AddVertexAt(j, linestring.Coordinates[j].Map(), 0, 0, 0);
+                }
+            }
+
+            return polylines;
+        }
+        public static Point2d Map(this Coordinate coordinate) => new Point2d(coordinate.X, coordinate.Y);
     }
 }

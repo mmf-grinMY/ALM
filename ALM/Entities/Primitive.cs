@@ -1,8 +1,10 @@
-﻿using System;
+﻿using ALM.Logging;
+
+using System.IO;
+using System;
 
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
-using ALM.Logging;
 
 namespace ALM.Entities
 {
@@ -59,7 +61,7 @@ namespace ALM.Entities
 
         #endregion
 
-        #region Ctor
+        #region Ctors
 
         /// <summary>
         /// Создание объекта
@@ -83,18 +85,6 @@ namespace ALM.Entities
                          string id,
                          string guid)
         {
-            JObject JsonParse(string source, string exceptionSource)
-            {
-                try
-                {
-                    return JObject.Parse(source);
-                }
-                catch (JsonReaderException e)
-                {
-                    throw e.AddData(guid, exceptionSource.ToUpper() + ": " + source);
-                }
-            }
-
             int Int32Parse(string source, string exceptionSource)
             {
                 try
@@ -112,8 +102,8 @@ namespace ALM.Entities
             }
 
             Geometry = wkt;
-            DrawSettings = JsonParse(settings, nameof(settings));
-            Param = JsonParse(param, nameof(param));
+            DrawSettings = JsonParse(settings, nameof(settings), guid);
+            Param = JsonParse(param, nameof(param), guid);
             
             try
             {
@@ -150,8 +140,69 @@ namespace ALM.Entities
                 throw e.AddData(guid, "GUID: " + guid);
             }
         }
+        internal Primitive(string wkt,
+                         string settings,
+                         string param,
+                         string layername,
+                         int systemid,
+                         string baseName,
+                         string childFields,
+                         int id,
+                         Guid guid)
+        {
+            var strGuid = guid.ToString().ToUpper();
+
+            Geometry = wkt;
+            DrawSettings = JsonParse(settings, nameof(settings), strGuid);
+            Param = JsonParse(param, nameof(param), strGuid);
+
+            try
+            {
+                LayerName = System.Text.RegularExpressions.Regex.Replace(layername, "[<>\\*\\?/|\\\\\":;,=]", "_");
+            }
+            catch (System.Text.RegularExpressions.RegexMatchTimeoutException e)
+            {
+                throw e.AddData(strGuid, "LAYER: " + layername);
+            }
+            catch (ArgumentNullException e)
+            {
+                throw e.AddData(strGuid, "LAYER: " + layername);
+            }
+            catch (ArgumentException e)
+            {
+                throw e.AddData(strGuid, "LAYER: " + layername);
+            }
+
+            SystemId = systemid;
+            BaseName = baseName;
+            ChildField = childFields;
+            Id = id;
+            this.guid = guid;
+        }
 
         #endregion
+
+        private JObject JsonParse(string source, string exceptionSource, string guid)
+        {
+            try
+            {
+                return JObject.Parse(source);
+            }
+            catch (JsonReaderException e)
+            {
+                // FontName имеет не имя шрифта а абсолютный путь к нему
+                if (e.Message.StartsWith("Bad JSON escape sequence: \\M. Path 'FontName'"))
+                {
+                    var obj = JObject.Parse(source.Replace("\\", "\\\\"));
+                    obj["FontName"] = Path.GetFileName(obj["FontName"].ToString());
+                    return obj;
+                }
+                else
+                {
+                    throw e.AddData(guid, exceptionSource.ToUpper() + ": " + source);
+                }
+            }
+        }
     }
     public static class ExceptionTools
     {

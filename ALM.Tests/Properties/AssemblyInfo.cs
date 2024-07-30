@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Общие сведения об этой сборке предоставляются следующим набором
 // набора атрибутов. Измените значения этих атрибутов для изменения сведений,
 // связанные со сборкой.
-[assembly: AssemblyTitle("ALM")]
-[assembly: AssemblyDescription("AutoCAD Like MapManager plugin")]
+[assembly: AssemblyTitle("ALM.Tests")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("BSU")]
-[assembly: AssemblyProduct("ALM")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ALM.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Следующий GUID служит для идентификации библиотеки типов, если этот проект будет видимым для COM
-[assembly: Guid("16101008-bb22-4321-9bd0-45a7a08cdabd")]
+[assembly: Guid("95ec058b-2466-4d42-ad56-c034fb3e67ed")]
 
 // Сведения о версии сборки состоят из указанных ниже четырех значений:
 //
@@ -34,7 +34,3 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-
-// Сборка для тестирования плагина
-[assembly:InternalsVisibleTo("ALM.Tests")]
-[assembly:InternalsVisibleTo("DynamicProxyGenAssembly2")]

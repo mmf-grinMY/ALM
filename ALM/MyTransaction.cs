@@ -107,6 +107,7 @@ namespace ALM
 
                 action(transaction, table, record, logger);
             }
+            catch (NotDrawingLineException) { }
             catch (Exception e)
             {
                 logger.LogError(e);
