@@ -175,6 +175,8 @@
     <Compile Include="Logging\ILogging.cs" />
     <Compile Include="MyTransaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\OracleRepository.cs" />
     <Compile Include="View\DrawInfoWindow.xaml.cs">
       <DependentUpon>DrawInfoWindow.xaml</DependentUpon>
     </Compile>
