@@ -175,6 +175,8 @@
     <Compile Include="Logging\ILogging.cs" />
     <Compile Include="MyTransaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\OracleRepository.cs" />
     <Compile Include="View\DrawInfoWindow.xaml.cs">
       <DependentUpon>DrawInfoWindow.xaml</DependentUpon>
     </Compile>
@@ -218,6 +220,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <None Include="ALM_structure.cd" />
     <None Include="Oracle.DataAccess.Common.Configuration.Section.xsd">
       <SubType>Designer</SubType>
     </None>
