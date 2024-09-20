@@ -4,11 +4,9 @@
 
 /**/.vs
 /packages
-/ALM/bin
-/ALM/obj
+/**/bin
+/**/obj
 /**/*.xsd
 /ALM.Tests/bin
 /ALM.Tests/obj
-/Plugins.Tests/Core
-/Plugins.Tests/Helpers
 /.vscode

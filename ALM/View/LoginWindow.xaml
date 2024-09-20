@@ -9,7 +9,8 @@
         WindowStyle="None"
         SizeToContent="WidthAndHeight"
         ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        x:Name="loginWindow">
   <Grid>
     <Grid.Resources>
 
@@ -132,11 +133,12 @@
           IsChecked="{Binding IsBoundigBoxChecked}"/>
     </Grid>
     <Button
-        x:Name="savebutton"
+        x:Name="saveButton"
         Style="{StaticResource ConnectButtonStyle}"
         MinWidth="{Binding ElementName=username, Path=ActualWidth}"
         Grid.Row="1"/>
     <Button
+        x:Name="cancelButton"
         Style="{StaticResource CancelButtonStyle}"
         Grid.Row="1"
         Grid.Column="1"/>
