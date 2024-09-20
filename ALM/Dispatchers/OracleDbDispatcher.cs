@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Data.Common;
 using System.Threading;
 using System.Windows;
 using System.Data;
@@ -17,7 +18,6 @@ using System;
 using Oracle.ManagedDataAccess.Client;
 
 using Newtonsoft.Json;
-using System.Data.Common;
 
 namespace ALM
 {
@@ -228,12 +228,12 @@ namespace ALM
                         session.Right, session.Left, session.Top, session.Bottom);
                 }
 
-                OracleDataReader reader = null;
+                DbDataReader reader = null;
 
                 try
                 { 
-                    reader = new OracleCommand(command, connection).ExecuteReader();
-                    while (reader.Read())
+                    reader = await new OracleCommand(command, connection).ExecuteReaderAsync();
+                    while (await reader.ReadAsync())
                     {
                         if (token.IsCancellationRequested) return;
 
@@ -321,6 +321,6 @@ namespace ALM
             }
         }
 
-        #endregion
+#endregion
     }
 }

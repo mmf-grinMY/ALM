@@ -1,244 +1,26 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{16101008-BB22-4321-9BD0-45A7A08CDABD}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ALM</RootNamespace>
-    <AssemblyName>ALM</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <TargetFramework>net4.8</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;DRAW_ALL</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="AcCoreMgd, Version=24.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoCAD.NET.Core.24.0.0\lib\net47\AcCoreMgd.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="AcCui, Version=24.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoCAD.NET.24.0.0\lib\net47\AcCui.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="AcDbMgd, Version=24.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoCAD.NET.Model.24.0.0\lib\net47\AcDbMgd.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="acdbmgdbrep, Version=24.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoCAD.NET.Model.24.0.0\lib\net47\acdbmgdbrep.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="AcDx, Version=24.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoCAD.NET.24.0.0\lib\net47\AcDx.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="AcMgd, Version=24.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoCAD.NET.24.0.0\lib\net47\AcMgd.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="AcMr, Version=24.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoCAD.NET.24.0.0\lib\net47\AcMr.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="AcSeamless, Version=24.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\AutoCAD.NET.24.0.0\lib\net47\AcSeamless.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="AcTcMgd, Version=24.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoCAD.NET.24.0.0\lib\net47\AcTcMgd.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="AcWindows, Version=24.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoCAD.NET.24.0.0\lib\net47\AcWindows.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="AdUIMgd, Version=24.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoCAD.NET.24.0.0\lib\net47\AdUIMgd.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="AdUiPalettes, Version=24.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoCAD.NET.24.0.0\lib\net47\AdUiPalettes.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="AdWindows, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoCAD.NET.24.0.0\lib\net47\AdWindows.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="NetTopologySuite, Version=2.0.0.0, Culture=neutral, PublicKeyToken=f580a05016ebada1, processorArchitecture=MSIL">
-      <HintPath>..\packages\NetTopologySuite.2.5.0\lib\netstandard2.0\NetTopologySuite.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Oracle.ManagedDataAccess, Version=4.122.21.1, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
-      <HintPath>..\packages\Oracle.ManagedDataAccess.21.13.0\lib\net462\Oracle.ManagedDataAccess.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Configuration.Install" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Formats.Asn1, Version=8.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Formats.Asn1.8.0.1\lib\net462\System.Formats.Asn1.dll</HintPath>
-    </Reference>
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Management" />
-    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Text.Json, Version=8.0.0.4, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Json.8.0.4\lib\net462\System.Text.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
+    <PackageReference Include="AutoCAD.NET" Version="24.0.0" />
+    <PackageReference Include="NetTopologySuite.IO.Oracle" Version="3.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Oracle.ManagedDataAccess" Version="21.9.0" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Dispatchers\DbHelper.cs" />
-    <Compile Include="Dispatchers\HatchPatternLoader.cs" />
-    <Compile Include="Dispatchers\IDbDispatcher.cs" />
-    <Compile Include="Dispatchers\ITableDispatcher.cs" />
-    <Compile Include="Dispatchers\Session.cs" />
-    <Compile Include="Dispatchers\SymbolTableDispatchers\BlockTableDispatcher.cs" />
-    <Compile Include="Dispatchers\SymbolTableDispatchers\LayerTableDispatcher.cs" />
-    <Compile Include="Dispatchers\SymbolTableDispatchers\RegAppTableDispatcher.cs" />
-    <Compile Include="Entities\MyEntityStyle.cs" />
-    <Compile Include="Entities\PolylineExtension.cs" />
-    <Compile Include="Entities\Wkt\Parser.cs" />
-    <Compile Include="ExternalDB.cs">
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ExternalDB.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ExternalDB.Designer.cs">
-      <DependentUpon>ExternalDB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Logging\File\FileLogger.cs" />
-    <Compile Include="Logging\ILogging.cs" />
-    <Compile Include="MyTransaction.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\IRepository.cs" />
-    <Compile Include="Repository\OracleRepository.cs" />
-    <Compile Include="View\DrawInfoWindow.xaml.cs">
-      <DependentUpon>DrawInfoWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ConnectionParams.cs" />
-    <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="Entities\Primitive.cs" />
-    <Compile Include="Dispatchers\SymbolTableDispatchers\SymbolTableDispatcher.cs" />
-    <Compile Include="Entities\ColorConverter.cs" />
-    <Compile Include="Constants.cs" />
-    <Compile Include="Entities\EntitiesFactory.cs" />
-    <Compile Include="Entities\Text.cs" />
-    <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\Polyline.cs" />
-    <Compile Include="Entities\Polygon.cs" />
-    <Compile Include="Entities\Sign.cs" />
-    <Compile Include="Dispatchers\OracleDbDispatcher.cs" />
-    <Compile Include="View\BaseViewModel.cs" />
-    <Compile Include="Commands.cs" />
-    <Compile Include="View\ExternalDbWindow.xaml.cs">
-      <DependentUpon>ExternalDbWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\GorizontSelecterWindow.xaml.cs">
-      <DependentUpon>GorizontSelecterWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\LoginWindow.xaml.cs">
-      <DependentUpon>LoginWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\RelayCommand.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <Page Include="View\DrawInfoWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ExternalDbWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\GorizontSelecterWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <None Include="ALM_structure.cd" />
-    <None Include="Oracle.DataAccess.Common.Configuration.Section.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Oracle.ManagedDataAccess.Client.Configuration.Section.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="View\LoginWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ExternalDB.resx">
-      <DependentUpon>ExternalDB.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
 </Project>
