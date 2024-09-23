@@ -86,7 +86,7 @@
     <Position X="10" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
-      <FileName>View\ExternalDbWindow.xaml.cs</FileName>
+      <FileName>View\ExternalDBWindow.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -94,23 +94,16 @@
     <Position X="10" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>View\ExternalDbWindow.xaml.cs</FileName>
+      <FileName>View\ExternalDBWindow.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ALM.View.GorizontSelecterWindow" Collapsed="true">
+  <Class Name="ALM.View.HorizonSelecterWindow" Collapsed="true">
     <Position X="6.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAABAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>View\GorizontSelecterWindow.xaml.cs</FileName>
+      <FileName>View\HorizonSelecterWindow.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="ALM.View.GorizontSelecterViewModel" Collapsed="true">
-    <Position X="6.5" Y="2" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>QAAAAgAAAAAAAAAAgAAABAAAAACAAAACAAAAAAAAAAA=</HashCode>
-      <FileName>View\GorizontSelecterWindow.xaml.cs</FileName>
-    </TypeIdentifier>
   </Class>
   <Class Name="ALM.View.LoginWindow" Collapsed="true">
     <Position X="4.75" Y="4.5" Width="1.5" />
@@ -290,7 +283,7 @@
   <Class Name="ALM.DbHelper" Collapsed="true">
     <Position X="16.25" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAAgAAAAAAAAAAAAAAAGAAAAAAAAAIAgAEAAAAAgAAA=</HashCode>
+      <HashCode>QAAgAAAAAAAAAAAAAAAGAAAAAAAAAIAAAEQAAAAgAAA=</HashCode>
       <FileName>Dispatchers\DbHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -312,7 +305,7 @@
   <Class Name="ALM.OracleDbDispatcher" Collapsed="true">
     <Position X="14.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABgAAAAACAAAACCJAARAAQAAACAAAAAAAAQAEAAAAA=</HashCode>
+      <HashCode>AABgAAAAACIAAACCJAARAAQAAAAAAAAAAAAQAEAAAAA=</HashCode>
       <FileName>Dispatchers\OracleDbDispatcher.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.692" />
@@ -324,6 +317,13 @@
       <FileName>Dispatchers\Session.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ALM.View.HorizonSelecterViewModel" Collapsed="true">
+    <Position X="7.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAgAAAAIAAAAAAAAABAAAAAAAAAAIAAAACAAAAAA=</HashCode>
+      <FileName>View\HorizonSelecterWindow.xaml.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Interface Name="ALM.View.IResult" Collapsed="true">
     <Position X="5.75" Y="3.5" Width="1.5" />
@@ -356,7 +356,7 @@
   <Interface Name="ALM.IDbDispatcher" Collapsed="true">
     <Position X="14.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABgAAAAAAAAAAAAJAAQAAQAAACAAAAAAAAQAAAAAAA=</HashCode>
+      <HashCode>AABgAAAAAAIAAAAAJAAQAAQAAAAAAAAAAAAQAAAAAAA=</HashCode>
       <FileName>Dispatchers\IDbDispatcher.cs</FileName>
     </TypeIdentifier>
   </Interface>

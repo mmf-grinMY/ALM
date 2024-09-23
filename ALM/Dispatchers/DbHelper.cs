@@ -55,10 +55,10 @@ namespace ALM
         /// <summary>
         /// Получение рисуемого горизонта
         /// </summary>
-        /// <param name="gorizonts">Список доступных для отрисовки горизонтов</param>
+        /// <param name="horizons">Список доступных для отрисовки горизонтов</param>
         /// <returns>Выбранный горизонт</returns>
-        public static object[] SelectGorizont(ObservableCollection<string> gorizonts) => 
-            GetResult(new GorizontSelecterWindow(gorizonts));
+        public static object[] SelectHorizon(ObservableCollection<string> horizons) => 
+            GetResult(new HorizonSelecterWindow(horizons));
         /// <summary>
         /// Создание команды выборки данных
         /// </summary>

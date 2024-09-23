@@ -6,28 +6,28 @@ using System.Linq;
 namespace ALM.View
 {
     /// <summary>
-    /// Логика взаимодействия для GorizontSelecterWindow.xaml
+    /// Логика взаимодействия для HorizonSelecterWindow.xaml
     /// </summary>
-    partial class GorizontSelecterWindow : Window, IResult
+    partial class HorizonSelecterWindow : Window, IResult
     {
         #region Ctor
 
         /// <summary>
         /// Создание объекта
         /// </summary>
-        /// <param name="dbGorizonts">Список доступных горизонтов</param>
-        public GorizontSelecterWindow(ObservableCollection<string> dbGorizonts)
+        /// <param name="dbHorizons">Список доступных горизонтов</param>
+        public HorizonSelecterWindow(ObservableCollection<string> dbHorizons)
         {
             InitializeComponent();
             IsSuccess = false;
 
-            var model = new GorizontSelecterViewModel(dbGorizonts);
+            var model = new HorizonSelecterViewModel(dbHorizons);
             DataContext = model;
             model.CancelCommand = new RelayCommand(obj => Hide());
             model.SelectCommand = new RelayCommand(obj =>
             {
                 IsSuccess = true;
-                Result = model.Gorizonts[model.SelectedGorizont];
+                Result = model.Horizons[model.SelectedHorizon];
                 Hide();
             });
         }
@@ -42,16 +42,16 @@ namespace ALM.View
         #endregion
     }
     /// <summary>
-    /// Модель представления для GorizontSelecterWindow.xaml
+    /// Модель представления для HorizonSelecterWindow.xaml
     /// </summary>
-    class GorizontSelecterViewModel : BaseViewModel
+    class HorizonSelecterViewModel : BaseViewModel
     {
         #region Private Fields
 
         /// <summary>
         /// Выбранный горизонт
         /// </summary>
-        int selectedGorizont;
+        int selectedHorizon;
         /// <summary>
         /// Список доступных для чтения горизонтов
         /// </summary>
@@ -65,7 +65,7 @@ namespace ALM.View
         /// Создание объекта
         /// </summary>
         /// <param name="dbHorizons">Список доступных для чтения горизонтов</param>
-        public GorizontSelecterViewModel(ObservableCollection<string> dbHorizons) 
+        public HorizonSelecterViewModel(ObservableCollection<string> dbHorizons) 
             => horizons = new ObservableCollection<string>(dbHorizons.OrderBy(s => s));
         
         #endregion
@@ -73,15 +73,15 @@ namespace ALM.View
         #region Public Properties
 
         /// <inheritdoc cref="horizons"/>
-        public ObservableCollection<string> Gorizonts => horizons;
-        /// <inheritdoc cref="selectedGorizont"/>
-        public int SelectedGorizont
+        public ObservableCollection<string> Horizons => horizons;
+        /// <inheritdoc cref="selectedHorizon"/>
+        public int SelectedHorizon
         {
-            get => selectedGorizont;
+            get => selectedHorizon;
             set
             {
-                selectedGorizont = value;
-                OnPropertyChanged(nameof(SelectedGorizont));
+                selectedHorizon = value;
+                OnPropertyChanged(nameof(SelectedHorizon));
             }
         }
 

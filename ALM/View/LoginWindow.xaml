@@ -29,7 +29,7 @@
       <Style x:Key="CancelButtonStyle" BasedOn="{StaticResource ButtonStyle}" TargetType="{x:Type Button}">
         <Setter Property="Margin" Value="0 4 4 4"/>
         <Setter Property="Content" Value="Отмена"/>
-        <Setter Property="Width" Value="{Binding ElementName=savebutton, Path=ActualWidth}"/>
+        <Setter Property="Width" Value="{Binding ElementName=saveButton, Path=ActualWidth}"/>
         <Setter Property="Command" Value="{Binding CancelCommand}"/>
       </Style>
     </Grid.Resources>
@@ -55,7 +55,7 @@
 
       <Grid.ColumnDefinitions>
         <ColumnDefinition/>
-        <ColumnDefinition MinWidth="{Binding ElementName=savebutton, Path=ActualWidth}"/>
+        <ColumnDefinition MinWidth="{Binding ElementName=saveButton, Path=ActualWidth}"/>
       </Grid.ColumnDefinitions>
 
       <Grid.Resources>

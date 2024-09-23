@@ -12,13 +12,11 @@ namespace ALM
         /// <summary>
         /// Количество записей на горизонте, доступных для отрисовки
         /// </summary>
-        /// <param name="gorizont">Имя горизонта для поиска</param>
-        /// <returns>Количество записей</returns>
         uint Count { get; }
         /// <summary>
         /// Доступные для отрисовки горизонты
         /// </summary>
-        System.Collections.ObjectModel.ObservableCollection<string> Gorizonts { get; }
+        System.Collections.ObjectModel.ObservableCollection<string> Horizons { get; }
         /// <summary>
         /// Учет граничных точек
         /// </summary>

@@ -8,7 +8,7 @@
     <Page Update="View\ExternalDBWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\GorizontSelecterWindow.xaml">
+    <Page Update="View\HorizonSelecterWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\LoginWindow.xaml">

@@ -46,10 +46,10 @@ namespace ALM
         /// Создание объекта
         /// </summary>
         /// <param name="connectionStr">Строка подключения</param>
-        /// <param name="gorizont">Выбранный горизонт</param>
+        /// <param name="horizon">Выбранный горизонт</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
-        public OracleDbDispatcher(ILogger logger, string connectionStr = null, string gorizont = null)
+        public OracleDbDispatcher(ILogger logger, string connectionStr = null, string horizon = null)
         {
             this.logger = logger;
 
@@ -88,9 +88,9 @@ namespace ALM
                 }
             }
 
-            if (gorizont is null)
+            if (horizon is null)
             {
-                result = DbHelper.SelectGorizont(Gorizonts);
+                result = DbHelper.SelectHorizon(Horizons);
 
                 if ((bool)result[1])
                     throw new InvalidOperationException();
@@ -99,7 +99,7 @@ namespace ALM
             }
             else
             {
-                this.horizon = gorizont;
+                this.horizon = horizon;
             }
         }
 
@@ -107,11 +107,11 @@ namespace ALM
 
         #region Public Properties
 
-        public ObservableCollection<string> Gorizonts
+        public ObservableCollection<string> Horizons
         {
             get
             {
-                var gorizonts = new ObservableCollection<string>();
+                var horizons = new ObservableCollection<string>();
                 const string command =
 "SELECT DISTINCT SUBSTR(table_name, 2, INSTR(table_name, '_', 2) - 2) AS pattern FROM all_tables " + 
 "WHERE table_name LIKE 'K%_TRANS_CLONE' AND SUBSTR(table_name, 2, INSTR(table_name, '_', 2) - 2) IN (" + 
@@ -121,11 +121,11 @@ namespace ALM
                 {
                     while (reader.Read())
                     {
-                        gorizonts.Add(reader.GetString(0));
+                        horizons.Add(reader.GetString(0));
                     }
                 }
 
-                return gorizonts;
+                return horizons;
             }
         }
         public uint Count

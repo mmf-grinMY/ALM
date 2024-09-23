@@ -1,15 +1,16 @@
-﻿<Window x:Class="ALM.View.GorizontSelecterWindow"
+﻿<Window x:Class="ALM.View.HorizonSelecterWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:local="clr-namespace:ALM.View"
         mc:Ignorable="d" 
-        d:DataContext="{d:DesignInstance local:GorizontSelecterViewModel}"
+        d:DataContext="{d:DesignInstance local:HorizonSelecterViewModel}"
         WindowStyle="None"
         SizeToContent="WidthAndHeight"
         ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        x:Name="horizonSelecterWindow">
     <Grid>
         <Grid.Resources>
             
@@ -57,14 +58,14 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock
-            x:Name="gorizontName"
+            x:Name="horizonName"
             Text="Имя горизонта"
             Style="{StaticResource TextBlockStyle}"/>
         <ComboBox 
-            ItemsSource="{Binding Gorizonts}"
+            ItemsSource="{Binding Horizons}"
             Grid.Column="1"
             Style="{StaticResource ComboBoxStyle}"
-            SelectedIndex="{Binding SelectedGorizont}"/>
+            SelectedIndex="{Binding SelectedHorizon}"/>
         <Button
             x:Name="savebutton"
             Style="{StaticResource SelectButtonStyle}"
