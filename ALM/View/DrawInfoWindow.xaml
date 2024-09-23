@@ -10,7 +10,8 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         MaxWidth="280"
-        MaxHeight="80">
+        MaxHeight="80"
+        x:Name="drawInfoWindow">
     <StackPanel>
         <Grid>
             <Grid.ColumnDefinitions>

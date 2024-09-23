@@ -1,6 +1,7 @@
 ﻿using System.Windows.Automation;
 using System.Diagnostics;
 using System.Threading;
+using System.Windows;
 
 using Xunit;
 
@@ -72,6 +73,46 @@ namespace ALM.E2ETests
             loginWindow.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.AutomationIdProperty, "saveButton")).SendKeys("{ENTER}");
 
             #endregion
+
+            Thread.Sleep(1_000);
+
+            #region Инициализация окна выбора горизонта
+
+            var horizonSelecterWindow = AutomationElement.RootElement.FindFirst(TreeScope.Descendants,
+                new AndCondition(wpfCondition, new PropertyCondition(AutomationElement.AutomationIdProperty, "horizonSelecterWindow")));
+
+            // TODO: Выбор горизонта
+
+            horizonSelecterWindow.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.AutomationIdProperty, "savebutton")).SendKeys("{ENTER}");
+
+            #endregion
+
+            Thread.Sleep(500);
+
+            #region Обработка работы MMP_DRAW
+            
+            var drawInfoWindow = AutomationElement.RootElement.FindFirst(TreeScope.Descendants, new AndCondition(wpfCondition,
+                new PropertyCondition(AutomationElement.AutomationIdProperty, "drawInfoWindow")));
+
+            var waitHandle = new EventWaitHandle(false, EventResetMode.ManualReset, "Global\\WindowClosedEvent");
+
+            var drawInfoClosedHandler = new AutomationEventHandler(OnWindowClosed);
+            Automation.AddAutomationEventHandler(WindowPattern.WindowClosedEvent, drawInfoWindow, TreeScope.Element, drawInfoClosedHandler);
+
+            waitHandle.WaitOne();
+
+            // TODO: Проверка состояния документа и отрисованных объектов
+
+            #endregion
+        }
+
+        private void OnWindowClosed(object sender, AutomationEventArgs e)
+        {
+            if (e.EventId == WindowPattern.WindowClosedEvent)
+            {
+                var waitHandle = new EventWaitHandle(false, EventResetMode.ManualReset, "Global\\WindowClosedEvent");
+                waitHandle.Set();
+            }
         }
     }
     /// <summary>
