@@ -10,7 +10,7 @@
         SizeToContent="WidthAndHeight"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        x:Name="loginWindow">
+        Name="loginWindow">
   <Grid>
     <Grid.Resources>
 
@@ -100,6 +100,7 @@
           Grid.Row="2"
           Style="{StaticResource TextBlockStyle}"/>
       <TextBox
+          x:Name="host"
           Text="{Binding Host}"
           Grid.Row="2"
           Grid.Column="1"
@@ -109,6 +110,7 @@
           Grid.Row="3"
           Style="{StaticResource TextBlockStyle}"/>
       <TextBox
+          x:Name="dbName"
           Text="{Binding DbName}"
           Grid.Row="3"
           Grid.Column="1"
