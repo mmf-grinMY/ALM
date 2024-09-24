@@ -18,9 +18,9 @@ Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "acad", "..\..\..\..\..\Prog
 		IORedirection = Auto
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALM", "ALM\ALM.csproj", "{27212C54-F828-40D9-A867-1708E89F5D07}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALM", "src\ALM\ALM.csproj", "{27212C54-F828-40D9-A867-1708E89F5D07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALM.E2ETests", "ALM.E2ETests\ALM.E2ETests.csproj", "{2B6CF554-6C7A-4A6D-8043-658FD66A755E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALM.E2ETests", "tests\e2e\ALM.E2ETests\ALM.E2ETests.csproj", "{2B6CF554-6C7A-4A6D-8043-658FD66A755E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
