@@ -1,3 +1,3 @@
-# ALM (AutoCAD Like MapManager)
+# ALM
 
-Модуль расширения для САПР **AutoCAD**, отвечающий за обработку геометрии из MapManager.
+Модуль расширения для САПР **AutoCAD**.
